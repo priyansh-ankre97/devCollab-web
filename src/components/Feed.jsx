@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL } from "../utils/constant";
 import { addFeed } from "../utils/feedSlice";
-import UserCard from "./userCard";
+import UserCard from "./common/UserCard";
 
 const Feed = () => {
   const dispatch = useDispatch();
@@ -10,7 +10,9 @@ const Feed = () => {
   const fetchFeed = async () => {
     if (feed) return;
     try {
-      const res = await fetch(BASE_URL + "/user/feed");
+      const res = await fetch(BASE_URL + "/user/feed", {
+        credentials: "include",
+      });
       const { data } = await res.json();
       dispatch(addFeed(data));
     } catch (error) {}
@@ -20,7 +22,7 @@ const Feed = () => {
     fetchFeed();
   }, []);
 
-  return <div>{feed && <UserCard user={feed[0]} />}</div>;
+  return <div className="m-10 ">{feed && <UserCard user={feed[0]} />}</div>;
 };
 
 export default Feed;

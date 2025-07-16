@@ -1,21 +1,22 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL } from "../utils/constant";
-import { use, useEffect } from "react";
+import { use, useEffect, useState } from "react";
 import ROUTES from "../utils/routingUrls";
 import { addUser } from "../utils/userSlice";
 
 const Body = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
+  const { pathname } = useLocation();
+
   const userInfo = useSelector((store) => store.user);
 
   const fetchUser = async () => {
-    console.log(userInfo);
-
-    if (userInfo) return;
+    if (userInfo || [ROUTES.LOGIN, ROUTES.SIGNUP].includes(pathname)) return;
     try {
       const response = await fetch(BASE_URL + "/profile/view", {
         credentials: "include",
@@ -23,10 +24,15 @@ const Body = () => {
       if (response.status === 401) {
         navigate(ROUTES.LOGIN);
       }
-      const { data } = await response.json();
-      dispatch(addUser(data));
+      const { data = null, error = null } = await response.json();
+      if (data) {
+        dispatch(addUser(data));
+      } else if (!response.ok || error) {
+        throw new Error(error);
+      }
     } catch (error) {
-      console.error(error);
+      setError(error.message);
+      console.error(error.message);
     }
   };
   useEffect(() => {

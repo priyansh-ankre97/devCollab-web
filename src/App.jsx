@@ -7,6 +7,8 @@ import appStore from "./utils/appStore";
 import Feed from "./components/Feed";
 import ROUTES from "./utils/routingUrls";
 import Profile from "./components/Profile";
+import Connections from "./components/Connections";
+import Requests from "./components/Requests";
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
               <Route path={ROUTES.LOGIN} element={<Login />} />
               <Route path={ROUTES.SIGNUP} element={<Signup />} />
               <Route path={ROUTES.PROFILE} element={<Profile />} />
+              <Route path={ROUTES.CONNECTIONS} element={<Connections />} />
+              <Route path={ROUTES.REQUESTS} element={<Requests />} />
             </Route>
           </Routes>
         </BrowserRouter>

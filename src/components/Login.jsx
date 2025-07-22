@@ -5,6 +5,7 @@ import { BASE_URL } from "../utils/constant";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../utils/routingUrls";
 import CustInput from "./common/CustInput";
+import Toast from "./common/Toast";
 
 const Login = () => {
   const [emailId, setEmailId] = useState("Priyansh@gmail.com");
@@ -42,31 +43,34 @@ const Login = () => {
     }
   };
   return (
-    <div className="flex justify-center my-10">
-      <div className="card card-dash bg-base-300 w-96">
-        <div className="card-body">
-          <h2 className="card-title">Login!</h2>
-          <CustInput
-            label={"Enter you emailId"}
-            placeholder={"Type EmailId here"}
-            setValue={(e) => setEmailId(e.target.value)}
-            value={emailId}
-          />
-          <CustInput
-            label={"Enter you Password"}
-            placeholder={"Type Password here"}
-            setValue={(e) => setPassword(e.target.value)}
-            value={password}
-          />
-          {error && <p className="text-red-500 text-xs">{error}</p>}
-          <div className="card-actions justify-center">
-            <button className="btn btn-primary" onClick={handleLogin}>
-              login
-            </button>
+    <>
+      <div className="flex justify-center my-10">
+        <div className="card card-dash bg-base-300 w-96">
+          <div className="card-body">
+            <h2 className="card-title">Login!</h2>
+            <CustInput
+              label={"Enter you emailId"}
+              placeholder={"Type EmailId here"}
+              setValue={(e) => setEmailId(e.target.value)}
+              value={emailId}
+            />
+            <CustInput
+              label={"Enter you Password"}
+              placeholder={"Type Password here"}
+              setValue={(e) => setPassword(e.target.value)}
+              value={password}
+            />
+            {error && <p className="text-red-500 text-xs">{error}</p>}
+            <div className="card-actions justify-center">
+              <button className="btn btn-primary" onClick={handleLogin}>
+                login
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <Toast open={false} successMessage={"Login Successfull"} />
+    </>
   );
 };
 

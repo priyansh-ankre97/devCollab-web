@@ -4,12 +4,11 @@ import { useDispatch } from "react-redux";
 import { BASE_URL } from "../utils/constant";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../utils/routingUrls";
-import CustInput from "./common/CustInput";
-import Toast from "./common/Toast";
+import Form from "./common/Form";
 
 const Login = () => {
-  const [emailId, setEmailId] = useState("Priyansh@gmail.com");
-  const [password, setPassword] = useState("Priyansh@123");
+  const [emailId, setEmailId] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -42,34 +41,33 @@ const Login = () => {
       console.error(error.message);
     }
   };
+  const navigateToSignup = () => {
+    navigate(ROUTES.SIGNUP);
+  };
+  const fields = [
+    {
+      label: "Enter you emailId",
+      placeholder: "Type EmailId here",
+      setValue: (e) => setEmailId(e.target.value),
+      value: emailId,
+    },
+    {
+      label: "Enter you Password",
+      placeholder: "Type Password here",
+      setValue: (e) => setPassword(e.target.value),
+      value: password,
+    },
+  ];
   return (
     <>
-      <div className="flex justify-center my-10">
-        <div className="card card-dash bg-base-300 w-96">
-          <div className="card-body">
-            <h2 className="card-title">Login!</h2>
-            <CustInput
-              label={"Enter you emailId"}
-              placeholder={"Type EmailId here"}
-              setValue={(e) => setEmailId(e.target.value)}
-              value={emailId}
-            />
-            <CustInput
-              label={"Enter you Password"}
-              placeholder={"Type Password here"}
-              setValue={(e) => setPassword(e.target.value)}
-              value={password}
-            />
-            {error && <p className="text-red-500 text-xs">{error}</p>}
-            <div className="card-actions justify-center">
-              <button className="btn btn-primary" onClick={handleLogin}>
-                login
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <Toast open={false} successMessage={"Login Successfull"} />
+      <Form
+        fields={fields}
+        onSubmit={handleLogin}
+        title="Login"
+        error={error}
+        helperText="Don't have an account? Signup"
+        onClickHelperText={navigateToSignup}
+      />
     </>
   );
 };

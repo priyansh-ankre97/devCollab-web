@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import CustInput from "./common/CustInput";
 import UserCard from "./common/UserCard";
 import { BASE_URL } from "../utils/constant";
+import ROUTES from "../utils/routingUrls";
+import { useNavigate } from "react-router-dom";
 
 const EditProfile = ({ user }) => {
   const [firstName, setFirstName] = useState(user.firstName);
@@ -11,6 +13,7 @@ const EditProfile = ({ user }) => {
   const [gender, setGender] = useState(user.gender);
   const [about, setAbout] = useState(user.about);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
   const handleSave = async () => {
     setError(null);
     try {
@@ -31,7 +34,7 @@ const EditProfile = ({ user }) => {
       });
       const { data = null, error = null } = await response.json();
       if (data) {
-        alert("Profile updated successfully");
+        navigate(ROUTES.DEFAULT);
       } else if (!response.ok || error) {
         throw new Error(error);
       }

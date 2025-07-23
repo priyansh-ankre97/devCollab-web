@@ -22,7 +22,11 @@ const Feed = () => {
     fetchFeed();
   }, []);
 
-  return <div className="m-10 ">{feed && <UserCard user={feed[0]} />}</div>;
+  return (
+    <div className="m-10 flex justify-center">
+      {feed && <UserCard user={feed[0]} />}
+    </div>
+  );
 };
 
 export default Feed;

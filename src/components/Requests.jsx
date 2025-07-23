@@ -44,8 +44,13 @@ const Requests = () => {
   useEffect(() => {
     fetchRequests();
   }, []);
+  if (!requests) return null;
+  if (requests.length === 0) {
+    return <h1 className="text-center my-5">No request to review</h1>;
+  }
   return (
     <div className="flex flex-col gap-4 my-5 items-center justify-center">
+      <h1>Connection Requests</h1>
       {requests?.map((request) => {
         const { firstName, lastName, photoUrl } = request.fromUserId;
         return (

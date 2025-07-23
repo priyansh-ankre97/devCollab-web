@@ -22,6 +22,10 @@ const Connections = () => {
   useEffect(() => {
     fetchConnections();
   }, []);
+  if (!connections) return null;
+  if (connections.length === 0) {
+    return <h1 className="text-center my-5">No Connections found</h1>;
+  }
   return (
     <div className="flex flex-col gap-4 my-5 items-center justify-center">
       {connections?.map((connection) => {

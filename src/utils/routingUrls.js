@@ -5,6 +5,7 @@ const ROUTES = {
   PROFILE: "/profile",
   CONNECTIONS: "/connections",
   REQUESTS: "/requests",
+  CHAT: "/chat",
 };
 
 export default ROUTES;

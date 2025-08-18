@@ -9,6 +9,7 @@ import ROUTES from "./utils/routingUrls";
 import Profile from "./components/Profile";
 import Connections from "./components/Connections";
 import Requests from "./components/Requests";
+import Chat from "./components/Chat";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
               <Route path={ROUTES.PROFILE} element={<Profile />} />
               <Route path={ROUTES.CONNECTIONS} element={<Connections />} />
               <Route path={ROUTES.REQUESTS} element={<Requests />} />
+              <Route path={ROUTES.CHAT + "/:targetUserId"} element={<Chat />} />
             </Route>
           </Routes>
         </BrowserRouter>

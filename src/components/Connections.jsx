@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL } from "../utils/constant";
 import { addConnections } from "../utils/connectionSlice";
+import { Link } from "react-router-dom";
+import ROUTES from "../utils/routingUrls";
 
 const Connections = () => {
   const dispatch = useDispatch();
@@ -19,6 +21,7 @@ const Connections = () => {
       }
     } catch (error) {}
   };
+
   useEffect(() => {
     fetchConnections();
   }, []);
@@ -43,10 +46,9 @@ const Connections = () => {
                 <div className="text-sm opacity-50"></div>
               </div>
             </div>
-            {/* <div className="flex gap-2">
-              <button className="btn btn-primary">Accepted</button>
-              <button className="btn btn-secondary">Rejected</button>
-            </div> */}
+            <Link to={ROUTES.CHAT + "/" + connection._id}>
+              <button className="btn btn-primary">Chat</button>
+            </Link>
           </div>
         );
       })}
